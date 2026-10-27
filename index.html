@@ -2,154 +2,344 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FACTNOVA AI - Shorts Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FACTNOVA AI — Personal Edition</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#10131c;color:#f5f7ff}
-header{padding:24px 18px;background:#191e2b;border-bottom:1px solid #30374a}
-header h1{margin:0;color:#70e1c1;font-size:27px}
-header p{margin:8px 0 0;color:#b8c1d8;font-size:14px}
-main{max-width:760px;margin:auto;padding:18px}
-.card{background:#191e2b;border:1px solid #30374a;border-radius:16px;padding:18px;margin-bottom:18px}
-h2{font-size:19px;margin-top:0}
-label{display:block;margin:15px 0 7px;font-size:14px;color:#c9d2e8}
-input,select,textarea{width:100%;padding:13px;border-radius:9px;border:1px solid #424b60;background:#10131c;color:white;font-size:15px}
-textarea{min-height:85px;resize:vertical}
-button{width:100%;padding:14px;margin-top:16px;border:0;border-radius:10px;background:#70e1c1;color:#10131c;font-size:16px;font-weight:bold}
-button.secondary{background:#30374a;color:white}
-#output{white-space:pre-wrap;line-height:1.65;font-size:14px;overflow-wrap:anywhere}
-.small{font-size:12px;color:#aab4ca;line-height:1.6}
-footer{text-align:center;padding:24px;color:#8e99b2;font-size:12px}
+:root {
+  --bg: #0b1113;
+  --panel: #142124;
+  --mint: #72f0c2;
+  --text: #effaf6;
+  --muted: #a9bfba;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 18px;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.6 Arial, sans-serif;
+}
+main { max-width: 850px; margin: auto; }
+header { margin: 12px 0 24px; }
+h1 { color: var(--mint); margin-bottom: 0; }
+.subtitle { color: var(--muted); margin-top: 4px; }
+.panel {
+  background: var(--panel);
+  border: 1px solid #304649;
+  border-radius: 14px;
+  padding: 18px;
+  margin: 16px 0;
+}
+label {
+  display: block;
+  color: var(--muted);
+  margin: 12px 0 5px;
+}
+input, select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #426064;
+  background: #0b1517;
+  color: white;
+  font-size: 16px;
+}
+button {
+  padding: 12px 15px;
+  margin: 10px 5px 0 0;
+  border: 0;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.primary { background: var(--mint); color: #092019; }
+.secondary { background: #2b4144; color: white; }
+#output {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: #091012;
+  border: 1px solid #304649;
+  border-radius: 10px;
+  padding: 14px;
+  min-height: 150px;
+}
+.small { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
+<main>
 <header>
-<h1>✦ FACTNOVA AI</h1>
-<p>Your YouTube Shorts Content Studio</p>
+  <h1>✦ FACTNOVA AI</h1>
+  <div class="subtitle">Your Personal YouTube Shorts Content Studio</div>
 </header>
 
-<main>
-<section class="card">
-<h2>🎬 Create Your Shorts Package</h2>
-<label for="topic">Video topic</label>
-<input id="topic" placeholder="Example: 5 Amazing Ocean Facts">
+<section class="panel">
+  <h2>🎬 Create Your Shorts Package</h2>
 
-<label for="language">Video language</label>
-<select id="language">
-<option value="English">English</option>
-<option value="Indonesian">Indonesian</option>
-</select>
+  <label for="category">Content category</label>
+  <select id="category">
+    <option value="random">Surprising Facts</option>
+    <option value="ocean">Ocean and Nature</option>
+    <option value="space">Space and Science</option>
+    <option value="animals">Amazing Animals</option>
+    <option value="mystery">Mysteries and Strange Places</option>
+    <option value="human">Human Body and Brain</option>
+  </select>
 
-<label for="duration">Video duration</label>
-<select id="duration">
-<option value="20 seconds">20 seconds</option>
-<option value="30 seconds" selected>30 seconds</option>
-<option value="45 seconds">45 seconds</option>
-</select>
+  <label for="topic">Video topic</label>
+  <input id="topic" placeholder="Example: 5 mysteries of the ocean">
 
-<label for="style">Visual style</label>
-<select id="style">
-<option>Cinematic documentary</option>
-<option>Realistic wildlife</option>
-<option>Space and science</option>
-<option>Mystery and suspense</option>
-</select>
+  <label for="language">Video language</label>
+  <select id="language">
+    <option value="English">English</option>
+    <option value="Indonesian">Indonesian</option>
+  </select>
 
-<button onclick="generate()">Generate Content Package</button>
-<button class="secondary" onclick="copyResult()">Copy Results</button>
-<button class="secondary" onclick="downloadResult()">Download TXT</button>
-<p class="small">This starter version uses built-in templates. Verify factual claims before publishing.</p>
+  <label for="duration">Video duration</label>
+  <select id="duration">
+    <option value="20">20 seconds</option>
+    <option value="30" selected>30 seconds</option>
+    <option value="45">45 seconds</option>
+  </select>
+
+  <label for="style">Visual style</label>
+  <select id="style">
+    <option>Cinematic documentary</option>
+    <option>Realistic wildlife</option>
+    <option>Space and science</option>
+    <option>Mystery and suspense</option>
+    <option>3D animation</option>
+    <option>Claymation</option>
+  </select>
+
+  <button class="primary" onclick="generate()">Generate Content Package</button>
+  <button class="secondary" onclick="copyResult()">Copy Results</button>
+  <button class="secondary" onclick="downloadResult()">Download TXT</button>
+  <button class="secondary" onclick="newTopic()">Suggest a Topic</button>
+
+  <p class="small">
+    Offline starter tool. Uses built-in examples and templates, not a live AI service.
+    Always verify facts before publishing.
+  </p>
 </section>
 
-<section class="card">
-<h2>📦 Your Content Package</h2>
-<div id="output">Your generated content will appear here.</div>
+<section class="panel">
+  <h2>📦 Your Content Package</h2>
+  <div id="output">Choose a category and generate your first content package.</div>
 </section>
 </main>
 
-<footer>FACTNOVA AI · Independent creator tool</footer>
-
 <script>
-function generate(){
-const topic=document.getElementById('topic').value.trim();
-const language=document.getElementById('language').value;
-const duration=document.getElementById('duration').value;
-const style=document.getElementById('style').value;
-if(!topic){alert('Please enter a video topic first.');return;}
+const library = {
+  ocean: {
+    name: "the ocean",
+    facts: [
+      "The ocean covers about 71% of Earth's surface.",
+      "The ocean helps regulate Earth's climate by moving heat around the planet.",
+      "Some deep-sea animals produce light through a process called bioluminescence.",
+      "The deep ocean is one of Earth's least explored environments.",
+      "Ocean currents move enormous amounts of water and influence weather patterns."
+    ]
+  },
+  space: {
+    name: "space",
+    facts: [
+      "A day on Venus is longer than its year.",
+      "The Sun contains more than 99% of the total mass of the Solar System.",
+      "Mars is home to Olympus Mons, the largest known volcano in the Solar System.",
+      "The Moon has no weather like Earth's wind and rain to quickly erase footprints.",
+      "A light-year measures distance, not time."
+    ]
+  },
+  animals: {
+    name: "amazing animals",
+    facts: [
+      "Octopuses have three hearts.",
+      "Some hummingbirds can hover in place.",
+      "Elephants can communicate using low-frequency sounds.",
+      "Many bats use echolocation to navigate and find food.",
+      "Some sea turtles travel thousands of kilometers during migration."
+    ]
+  },
+  mystery: {
+    name: "mysterious places",
+    facts: [
+      "Some locations remain difficult to study because of extreme weather or terrain.",
+      "The Nazca Lines in Peru include enormous designs best seen from above.",
+      "Scientists continue to investigate many unusual deep-sea environments.",
+      "Ancient stone structures can reveal clues about the people who built them.",
+      "A mystery is not proof of a supernatural explanation; evidence matters."
+    ]
+  },
+  human: {
+    name: "the human body",
+    facts: [
+      "The human brain contains roughly 86 billion neurons, according to widely cited estimates.",
+      "Skin is the body's largest organ.",
+      "Bones are living tissue that continually changes and repairs itself.",
+      "The small intestine is much longer than the large intestine.",
+      "The heart circulates blood through an extensive network of blood vessels."
+    ]
+  },
+  random: {
+    name: "surprising facts",
+    facts: [
+      "A light-year measures distance, not time.",
+      "Octopuses have three hearts.",
+      "The ocean covers about 71% of Earth's surface.",
+      "A day on Venus is longer than its year.",
+      "Skin is the body's largest organ."
+    ]
+  }
+};
 
-let result=
-"FACTNOVA AI — CONTENT PACKAGE\n"+
-"================================\n\n"+
-"TOPIC: "+topic+"\n"+
-"LANGUAGE: "+language+"\n"+
-"DURATION: "+duration+"\n"+
-"VISUAL STYLE: "+style+"\n\n"+
-"1. VIDEO HOOK\n"+
-"Did you know that "+topic+" could change the way you see the world?\n\n"+
-"2. SCRIPT DRAFT\n"+
-"Welcome to a world full of surprises!\n"+
-"Today, we're exploring "+topic+".\n"+
-"Here is something fascinating to discover.\n"+
-"Stay until the end to learn something new!\n"+
-"Follow for more amazing facts.\n\n"+
-"IMPORTANT: This is a draft template, not a fact-checked script. Replace generic lines with verified facts about your topic.\n\n"+
-"3. SCENE PLAN\n"+
-"Scene 1 — HOOK: Show a striking visual related to "+topic+".\n"+
-"Scene 2 — INTRO: Reveal the main subject.\n"+
-"Scene 3 — FACT 1: Present a verified fact with supporting visuals.\n"+
-"Scene 4 — FACT 2: Explain another verified fact.\n"+
-"Scene 5 — ENDING: Summarize and invite viewers to follow.\n\n"+
-"4. VISUAL PROMPTS\n"+
-"Scene 1: "+style+", vertical 9:16 composition, dramatic opening image about "+topic+", detailed subject, no text, no watermark.\n"+
-"Scene 2: Educational documentary visual about "+topic+", clear subject, vertical 9:16, no text.\n"+
-"Scene 3: Detailed realistic visualization illustrating a verified fact about "+topic+", vertical 9:16.\n"+
-"Scene 4: Cinematic close-up related to "+topic+", visually engaging, vertical 9:16.\n"+
-"Scene 5: Beautiful concluding shot related to "+topic+", vertical 9:16, no text.\n\n"+
-"5. TITLE IDEAS\n"+
-"• "+topic+": Facts You Should Know\n"+
-"• The Amazing Truth About "+topic+"\n"+
-"• Discover the World of "+topic+"\n\n"+
-"6. VIDEO DESCRIPTION\n"+
-"Discover interesting information about "+topic+". Research all claims and add reliable sources before publishing.\n\n"+
-"7. EDITING CHECKLIST\n"+
-"□ Use vertical 9:16 video\n"+
-"□ Add narration and readable subtitles\n"+
-"□ Use visuals you own or have permission to use\n"+
-"□ Verify every factual claim\n"+
-"□ Check music licensing\n"+
-"□ Review the final video before uploading\n\n"+
-"Generated by FACTNOVA AI Starter";
+const topicIdeas = [
+  "5 amazing facts about the ocean",
+  "Strange facts about outer space",
+  "Animals with unbelievable abilities",
+  "Mysterious places on Earth",
+  "Surprising facts about the human brain",
+  "Ocean discoveries that sound unreal",
+  "Space facts that change your perspective",
+  "Ancient mysteries explained by science"
+];
 
-document.getElementById('output').textContent=result;
+let lastResult = "";
+
+function generate() {
+  const category = document.getElementById("category").value;
+  const topic = document.getElementById("topic").value.trim();
+  const language = document.getElementById("language").value;
+  const duration = Number(document.getElementById("duration").value);
+  const style = document.getElementById("style").value;
+  const pack = library[category];
+  const subject = topic || pack.name;
+  const count = duration === 20 ? 3 : duration === 30 ? 4 : 5;
+  const facts = pack.facts.slice(0, count);
+  const isID = language === "Indonesian";
+
+  const hook = isID
+    ? `Tahukah kamu? Inilah beberapa fakta mengejutkan tentang ${subject}!`
+    : `You won't believe these fascinating facts about ${subject}!`;
+
+  const script = isID
+    ? `Tahukah kamu? Mari kita jelajahi ${subject}!\n\n${facts.map((f, i) => `Fakta ${i + 1}: ${f}`).join("\n\n")}\n\nFakta mana yang paling mengejutkanmu? Ikuti untuk pengetahuan menarik lainnya!`
+    : `Here are ${facts.length} fascinating facts about ${subject}!\n\n${facts.map((f, i) => `Fact ${i + 1}: ${f}`).join("\n\n")}\n\nWhich fact surprised you most? Follow for more amazing discoveries!`;
+
+  const scenes = [
+    `HOOK: A dramatic opening shot about ${subject}.`,
+    `INTRO: Establish the setting and introduce ${subject}.`,
+    `FACT 1: Visually illustrate "${facts[0]}" with an accurate documentary-style shot.`,
+    `FACT 2: Show supporting imagery for "${facts[Math.min(1, facts.length - 1)]}".`,
+    `ENDING: A memorable final shot that encourages curiosity about ${subject}.`
+  ];
+
+  const prompts = scenes.map((scene, i) =>
+    `Scene ${i + 1}: ${style}, ${scene} Vertical 9:16 composition, detailed subject, natural motion, coherent lighting, no text, no logo, no watermark.`
+  ).join("\n\n");
+
+  const titles = isID
+    ? [
+        `Fakta Mengejutkan tentang ${subject}`,
+        `Hal yang Jarang Diketahui tentang ${subject}`,
+        `${facts.length} Fakta yang Bikin Penasaran`
+      ]
+    : [
+        `${facts.length} Amazing Facts About ${subject}`,
+        `The Surprising Truth About ${subject}`,
+        `Facts About ${subject You May Not Know`
+      ];
+
+  const description = isID
+    ? `Temukan fakta menarik tentang ${subject}. Tonton sampai akhir dan beri tahu kami fakta favoritmu.`
+    : `Discover fascinating facts about ${subject}. Watch until the end and tell us which fact surprised you most.`;
+
+  const hashtags = "#Shorts #AmazingFacts #DidYouKnow #Mystery #Science";
+
+  lastResult =
+`FACTNOVA AI — CONTENT PACKAGE
+================================
+
+TOPIC: ${subject}
+LANGUAGE: ${language}
+DURATION: ${duration} seconds
+VISUAL STYLE: ${style}
+
+1. VIDEO HOOK
+${hook}
+
+2. SCRIPT DRAFT
+${script}
+
+3. FACT NOTES
+${facts.map((f, i) => `${i + 1}. ${f}`).join("\n")}
+
+4. FIVE-SCENE PLAN
+${prompts}
+
+5. TITLE IDEAS
+${titles.map(t => "• " + t).join("\n")}
+
+6. VIDEO DESCRIPTION
+${description}
+
+7. HASHTAGS
+${hashtags}
+
+8. EDITING CHECKLIST
+□ Vertical 9:16 format
+□ Strong opening in the first 1–3 seconds
+□ Readable subtitles and clear narration
+□ Use visuals you own or have permission to use
+□ Verify factual claims using reliable sources
+□ Check music licensing
+□ Review pacing and audio before uploading
+
+IMPORTANT:
+This is a template-based starter tool, not a live AI model.
+Built-in fact notes are starting points and should be verified.
+For mystery topics, distinguish verified facts from theories and legends.`;
+
+  document.getElementById("output").textContent = lastResult;
 }
-function copyResult(){
-const text=document.getElementById('output').textContent;
-if(!text||text==="Your generated content will appear here."){
-alert('Generate a content package first.');return;
+
+function newTopic() {
+  const topic = topicIdeas[Math.floor(Math.random() * topicIdeas.length)];
+  document.getElementById("topic").value = topic;
+  generate();
 }
-if(navigator.clipboard&&navigator.clipboard.writeText){
-navigator.clipboard.writeText(text).then(()=>alert('Copied!')).catch(()=>fallbackCopy(text));
-}else{fallbackCopy(text);}
+
+async function copyResult() {
+  if (!lastResult) generate();
+  try {
+    await navigator.clipboard.writeText(lastResult);
+    alert("Content package copied!");
+  } catch (e) {
+    const area = document.createElement("textarea");
+    area.value = lastResult;
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand("copy");
+    area.remove();
+    alert("Content package copied!");
+  }
 }
-function fallbackCopy(text){
-const area=document.createElement('textarea');
-area.value=text;document.body.appendChild(area);area.select();
-try{document.execCommand('copy');alert('Copy attempted.');}
-catch(e){alert('Please select and copy the text manually.');}
-area.remove();
+
+function downloadResult() {
+  if (!lastResult) generate();
+  const blob = new Blob([lastResult], {type: "text/plain;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "factnova-content-package.txt";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
 }
-function downloadResult(){
-const text=document.getElementById('output').textContent;
-if(!text||text==="Your generated content will appear here."){
-alert('Generate a content package first.');return;
-}
-const blob=new Blob([text],{type:'text/plain;charset=utf-8'});
-const url=URL.createObjectURL(blob);
-const a=document.createElement('a');
-a.href=url;a.download='factnova-content.txt';a.click();
-URL.revokeObjectURL(url);
-}
+
+generate();
 </script>
 </body>
-  </html>
+</html>
