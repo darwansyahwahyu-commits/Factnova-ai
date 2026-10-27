@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FACTNOVA AI - Shorts Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#10131c;color:#f5f7ff}
+header{padding:24px 18px;background:#191e2b;border-bottom:1px solid #30374a}
+header h1{margin:0;color:#70e1c1;font-size:27px}
+header p{margin:8px 0 0;color:#b8c1d8;font-size:14px}
+main{max-width:760px;margin:auto;padding:18px}
+.card{background:#191e2b;border:1px solid #30374a;border-radius:16px;padding:18px;margin-bottom:18px}
+h2{font-size:19px;margin-top:0}
+label{display:block;margin:15px 0 7px;font-size:14px;color:#c9d2e8}
+input,select,textarea{width:100%;padding:13px;border-radius:9px;border:1px solid #424b60;background:#10131c;color:white;font-size:15px}
+textarea{min-height:85px;resize:vertical}
+button{width:100%;padding:14px;margin-top:16px;border:0;border-radius:10px;background:#70e1c1;color:#10131c;font-size:16px;font-weight:bold}
+button.secondary{background:#30374a;color:white}
+#output{white-space:pre-wrap;line-height:1.65;font-size:14px;overflow-wrap:anywhere}
+.small{font-size:12px;color:#aab4ca;line-height:1.6}
+footer{text-align:center;padding:24px;color:#8e99b2;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+<h1>✦ FACTNOVA AI</h1>
+<p>Your YouTube Shorts Content Studio</p>
+</header>
+
+<main>
+<section class="card">
+<h2>🎬 Create Your Shorts Package</h2>
+<label for="topic">Video topic</label>
+<input id="topic" placeholder="Example: 5 Amazing Ocean Facts">
+
+<label for="language">Video language</label>
+<select id="language">
+<option value="English">English</option>
+<option value="Indonesian">Indonesian</option>
+</select>
+
+<label for="duration">Video duration</label>
+<select id="duration">
+<option value="20 seconds">20 seconds</option>
+<option value="30 seconds" selected>30 seconds</option>
+<option value="45 seconds">45 seconds</option>
+</select>
+
+<label for="style">Visual style</label>
+<select id="style">
+<option>Cinematic documentary</option>
+<option>Realistic wildlife</option>
+<option>Space and science</option>
+<option>Mystery and suspense</option>
+</select>
+
+<button onclick="generate()">Generate Content Package</button>
+<button class="secondary" onclick="copyResult()">Copy Results</button>
+<button class="secondary" onclick="downloadResult()">Download TXT</button>
+<p class="small">This starter version uses built-in templates. Verify factual claims before publishing.</p>
+</section>
+
+<section class="card">
+<h2>📦 Your Content Package</h2>
+<div id="output">Your generated content will appear here.</div>
+</section>
+</main>
+
+<footer>FACTNOVA AI · Independent creator tool</footer>
+
+<script>
+function generate(){
+const topic=document.getElementById('topic').value.trim();
+const language=document.getElementById('language').value;
+const duration=document.getElementById('duration').value;
+const style=document.getElementById('style').value;
+if(!topic){alert('Please enter a video topic first.');return;}
+
+let result=
+"FACTNOVA AI — CONTENT PACKAGE\n"+
+"================================\n\n"+
+"TOPIC: "+topic+"\n"+
+"LANGUAGE: "+language+"\n"+
+"DURATION: "+duration+"\n"+
+"VISUAL STYLE: "+style+"\n\n"+
+"1. VIDEO HOOK\n"+
+"Did you know that "+topic+" could change the way you see the world?\n\n"+
+"2. SCRIPT DRAFT\n"+
+"Welcome to a world full of surprises!\n"+
+"Today, we're exploring "+topic+".\n"+
+"Here is something fascinating to discover.\n"+
+"Stay until the end to learn something new!\n"+
+"Follow for more amazing facts.\n\n"+
+"IMPORTANT: This is a draft template, not a fact-checked script. Replace generic lines with verified facts about your topic.\n\n"+
+"3. SCENE PLAN\n"+
+"Scene 1 — HOOK: Show a striking visual related to "+topic+".\n"+
+"Scene 2 — INTRO: Reveal the main subject.\n"+
+"Scene 3 — FACT 1: Present a verified fact with supporting visuals.\n"+
+"Scene 4 — FACT 2: Explain another verified fact.\n"+
+"Scene 5 — ENDING: Summarize and invite viewers to follow.\n\n"+
+"4. VISUAL PROMPTS\n"+
+"Scene 1: "+style+", vertical 9:16 composition, dramatic opening image about "+topic+", detailed subject, no text, no watermark.\n"+
+"Scene 2: Educational documentary visual about "+topic+", clear subject, vertical 9:16, no text.\n"+
+"Scene 3: Detailed realistic visualization illustrating a verified fact about "+topic+", vertical 9:16.\n"+
+"Scene 4: Cinematic close-up related to "+topic+", visually engaging, vertical 9:16.\n"+
+"Scene 5: Beautiful concluding shot related to "+topic+", vertical 9:16, no text.\n\n"+
+"5. TITLE IDEAS\n"+
+"• "+topic+": Facts You Should Know\n"+
+"• The Amazing Truth About "+topic+"\n"+
+"• Discover the World of "+topic+"\n\n"+
+"6. VIDEO DESCRIPTION\n"+
+"Discover interesting information about "+topic+". Research all claims and add reliable sources before publishing.\n\n"+
+"7. EDITING CHECKLIST\n"+
+"□ Use vertical 9:16 video\n"+
+"□ Add narration and readable subtitles\n"+
+"□ Use visuals you own or have permission to use\n"+
+"□ Verify every factual claim\n"+
+"□ Check music licensing\n"+
+"□ Review the final video before uploading\n\n"+
+"Generated by FACTNOVA AI Starter";
+
+document.getElementById('output').textContent=result;
+}
+function copyResult(){
+const text=document.getElementById('output').textContent;
+if(!text||text==="Your generated content will appear here."){
+alert('Generate a content package first.');return;
+}
+if(navigator.clipboard&&navigator.clipboard.writeText){
+navigator.clipboard.writeText(text).then(()=>alert('Copied!')).catch(()=>fallbackCopy(text));
+}else{fallbackCopy(text);}
+}
+function fallbackCopy(text){
+const area=document.createElement('textarea');
+area.value=text;document.body.appendChild(area);area.select();
+try{document.execCommand('copy');alert('Copy attempted.');}
+catch(e){alert('Please select and copy the text manually.');}
+area.remove();
+}
+function downloadResult(){
+const text=document.getElementById('output').textContent;
+if(!text||text==="Your generated content will appear here."){
+alert('Generate a content package first.');return;
+}
+const blob=new Blob([text],{type:'text/plain;charset=utf-8'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;a.download='factnova-content.txt';a.click();
+URL.revokeObjectURL(url);
+}
+</script>
+</body>
+  </html>
